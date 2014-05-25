@@ -6,9 +6,9 @@ ViewManagement* ViewManagement::instance = NULL;
 ViewManagement::ViewManagement(QObject *parent) : QObject(parent),
     source(QUrl()),
     appEngine(new QQmlApplicationEngine()),
-    context(this->appEngine->rootContext())
+    context(this->appEngine->rootContext()),
+    window(Q_NULLPTR)
 {
-    this->window = NULL;
 }
 
 ViewManagement::ViewManagement(const QUrl &source, QObject *parent) : QObject(parent),
@@ -60,16 +60,19 @@ QQuickWindow *ViewManagement::getWindow() const
 
 void ViewManagement::show()
 {
-    this->window->show();
+    if (this->window)
+        this->window->show();
 }
 
 void ViewManagement::showFullScreen()
 {
-    this->window->showFullScreen();
+    if (this->window)
+        this->window->showFullScreen();
 }
 
 void ViewManagement::showMaximized()
 {
-    this->window->showMaximized();
+    if (this->window)
+        this->window->showMaximized();
 }
 
